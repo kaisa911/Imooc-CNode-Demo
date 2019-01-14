@@ -9,15 +9,15 @@ const config = {
     app: path.join(__dirname, "../client/app.js")
   },
   output: {
-    filename: "[name].[hash].js",
-    path: path.join(__dirname, "../dist"),
-    publicPath: "/public/"
+    filename: "[name].[hash].js", // 最长使用浏览器缓存的目的
+    path: path.join(__dirname, "../dist"), // 文件的存放路径
+    publicPath: "/public/" // 静态资源引用路径，用来区分静态资源或者api请求
   },
   mode: "development",
   module: {
     rules: [
       {
-        test: /.jsx$/,
+        test: /(.jsx$)|(.js$)/,
         loader: "babel-loader"
       },
       {
@@ -30,7 +30,7 @@ const config = {
   plugins: [
     new HTMLPlugin({
       template: path.join(__dirname, "../client/template.html")
-    })
+    }) //生成一个html页面，把entry的东西注入到这个html里
   ]
 };
 

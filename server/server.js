@@ -13,7 +13,7 @@ if (!isDev) {
     path.join(__dirname, "../dist/index.html"),
     "utf-8"
   );
-  app.use("/public", express.static(path.join(__dirname, "../dist")));
+  app.use("/public", express.static(path.join(__dirname, "../dist"))); //处理静态文件的目录
   app.get("*", (req, res) => {
     const appString = ReactSSR.renderToString(serverEntry);
     res.send(template.replace("<!-- app -->", appString));
