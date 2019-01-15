@@ -15,7 +15,7 @@ const render = (Component) => {
     <AppContainer>
       <Component />
     </AppContainer>,
-    root, d
+    root,
   );
 };
 

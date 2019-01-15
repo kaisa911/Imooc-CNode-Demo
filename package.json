@@ -3,16 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "client/**/*.{js,jsx}": [
-      "eslint --fix"
-    ]
-  },
   "scripts": {
     "build:client": "webpack --config build/webpack.config.client.js",
     "build:server": "webpack --config build/webpack.config.server.js",
@@ -21,7 +11,9 @@
     "clear": "rimraf dist",
     "build": "npm run clear && npm run build:client && npm run build:server",
     "dev": "npm run dev:client && npm run dev:server",
-    "start": "cross-env NODE_ENV=production node server/server.js"
+    "start": "cross-env NODE_ENV=production node server/server.js",
+    "lint": "eslint --ext .js --ext .jsx client/",
+    "precommit": "npm run lint"
   },
   "author": "",
   "license": "ISC",
@@ -55,7 +47,6 @@
     "eslint-plugin-standard": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.18.0",
-    "lint-staged": "^8.1.0",
     "memory-fs": "^0.4.1",
     "prettier": "^1.15.3",
     "rimraf": "^2.6.2",
