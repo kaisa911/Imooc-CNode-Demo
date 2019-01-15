@@ -5,14 +5,6 @@
     "es6": true,
     "node": true
   },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
-      },
-      "babel-module": {}
-    }
-  },
   "parserOptions": {
     "ecmaVersion": 8,
     "sourceType": "module"

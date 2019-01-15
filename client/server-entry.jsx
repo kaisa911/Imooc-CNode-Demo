@@ -1,4 +1,4 @@
 import React from 'react';
-import App from './Appd';
+import App from './views/App';
 
 export default <App />;

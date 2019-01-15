@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './Appd';
+import App from './views/App';
 
 // ReactDOM.hydrate(<App />, document.getElementById("root"));
 
