@@ -1,11 +1,11 @@
-const path = require('path');
+const path = require('path')
 
-console.log('读取webpack server配置');
+console.log('读取webpack server配置')
 
 module.exports = {
-  target: 'node', //js 打包出来的内容的运行环境
+  target: 'node', // js 打包出来的内容的运行环境
   entry: {
-    app: path.join(__dirname, '../client/server-entry.js')
+    app: path.join(__dirname, '../client/server-entry.jsx')
   },
   output: {
     filename: 'server-entry.js',
@@ -17,6 +17,12 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /(.jsx$)|(.js$)/,
+        loader: 'eslint-loader',
+        exclude: [path.join(__dirname, '../node_modules')]
+      },
+      {
         test: /.jsx$/,
         loader: 'babel-loader'
       },
@@ -27,4 +33,4 @@ module.exports = {
       }
     ]
   }
-};
+}
