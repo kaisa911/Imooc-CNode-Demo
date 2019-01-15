@@ -13,7 +13,7 @@ const config = {
     path: path.join(__dirname, '../dist'), // 文件的存放路径
     publicPath: '/public/' // 静态资源引用路径，用来区分静态资源或者api请求
   },
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -35,8 +35,10 @@ const config = {
 };
 
 if (isDev) {
+  console.log('读取webpack dev配置');
+  config.devtool = 'inline-source-map';
   config.entry = {
-    app: ['react-hot-loader/patch', path.join(__dirname, '../client/app.js')]
+    app: ['react-hot-loader/patch', path.join(__dirname, '../client/app.js')] //因为在.babelrc里添加了一个插件，所以入口就变成，把插件里的patch和app.js都打包进去
   };
   config.devServer = {
     host: '0.0.0.0', //0.0.0.0 是指可以使用任何方式来访问
@@ -51,7 +53,17 @@ if (isDev) {
       index: '/public/index.html'
     } // 制定index 映射到那个文件
   };
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  config.performance = {
+    // false | "error" | "warning" // 不显示性能提示 | 以错误形式提示 | 以警告...
+    hints: 'warning',
+    // 开发环境设置较大防止警告
+    // 根据入口起点的最大体积，控制webpack何时生成性能提示,整数类型,以字节为单位
+    maxEntrypointSize: 5000000,
+    // 最大单个资源体积，默认250000 (bytes)
+    maxAssetSize: 3000000
+  };
+
+  config.plugins.push(new webpack.HotModuleReplacementPlugin()); //webpack 的热更替插件
 }
 
 module.exports = config;
