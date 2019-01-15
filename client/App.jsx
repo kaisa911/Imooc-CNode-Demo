@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './views/App';
 
-// ReactDOM.hydrate(<App />, document.getElementById("root"));
-
 const root = document.getElementById('root');
 
 const render = (Component) => {
