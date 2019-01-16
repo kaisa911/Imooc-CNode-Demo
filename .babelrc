@@ -1,9 +1,11 @@
 {
   "presets": [
     ["es2015", { "loose": true }], // es6 松散模式
-    "react"
+    "react",
+    "stage-1"
   ], //babel 支持的语法
   "plugins": [
+    "transform-decorators-legacy",
     "react-hot-loader/babel" //热更替工具
   ]
 }

@@ -14,7 +14,7 @@ module.exports = {
         enforce: 'pre',
         test: /(.jsx$)|(.js$)/,
         loader: 'eslint-loader',
-        exclude: [path.join(__dirname, '../node_modules')],
+        exclude: [path.join(__dirname, '../node_modules')], // 排除不需要检查的文件
       },
       {
         test: /.jsx$/,
@@ -23,7 +23,7 @@ module.exports = {
       {
         test: /.js$/,
         loader: 'babel-loader',
-        exclude: [path.join(__dirname, '../node_modules')],
+        exclude: [path.join(__dirname, '../node_modules')], // 排除不需要babel编译的文件
       },
     ],
   },
