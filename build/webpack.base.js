@@ -6,7 +6,7 @@ module.exports = {
     publicPath: '/public/', // 静态资源引用路径，用来区分静态资源或者api请求
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'], // 声明不需要写后缀名的module
   },
   module: {
     rules: [
