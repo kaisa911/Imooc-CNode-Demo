@@ -8,14 +8,14 @@ class App extends React.Component {
   }
 
   render() {
-    return [
+    return (
       <div>
         <Link to="/">首页</Link>
         <br />
         <Link to="/detail">详情</Link>
-      </div>,
-      <Routes />,
-    ];
+        <Routes />
+      </div>
+    );
   }
 }
 

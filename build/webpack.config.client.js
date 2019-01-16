@@ -13,7 +13,7 @@ const config = webpackMerge(baseConfig, {
   output: {
     filename: '[name].[hash].js', // 最长使用浏览器缓存的目的
   },
-  mode: 'production',
+  mode: 'development',
   plugins: [
     new HTMLPlugin({
       template: path.join(__dirname, '../client/template.html'),

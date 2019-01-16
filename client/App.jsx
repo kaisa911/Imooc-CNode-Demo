@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom'; // 浏览器的router
-import { Provider } from 'mobx';
+import { Provider } from 'mobx-react';
 import App from './views/App';
 
 import appState from './store/appState';
@@ -12,6 +12,7 @@ const root = document.getElementById('root');
 const render = (Component) => {
   // 判断当前环境，来判断使用render或者hydrate
   const isSSR = process.env.NODE_ENV === 'development' ? 'render' : 'hydrate';
+  console.log(isSSR);
 
   ReactDOM[isSSR](
     <AppContainer>
