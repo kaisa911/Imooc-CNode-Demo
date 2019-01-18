@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { observer, inject } from 'mobx-react';
 import Routes from '../config/router';
 
+@inject('routing')
+@observer
 class App extends React.Component {
   componentDidMount() {
     // do somethings

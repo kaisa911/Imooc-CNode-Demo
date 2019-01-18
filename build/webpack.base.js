@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   output: {
@@ -18,13 +19,18 @@ module.exports = {
       },
       {
         test: /.jsx$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader?cacheDirectory=true',
       },
       {
         test: /.js$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader?cacheDirectory=true',
         exclude: [path.join(__dirname, '../node_modules')], // 排除不需要babel编译的文件
       },
     ],
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+    }),
+  ],
 };

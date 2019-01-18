@@ -6,6 +6,10 @@ import { AppState } from '../../store/appState';
 @inject('appState')
 @observer
 class TopicList extends React.Component {
+  static propTypes = {
+    appState: PropTypes.instanceOf(AppState).isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -31,9 +35,5 @@ class TopicList extends React.Component {
     );
   }
 }
-
-TopicList.propTypes = {
-  appState: PropTypes.instanceOf(AppState),
-};
 
 export default TopicList;
