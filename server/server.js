@@ -10,6 +10,7 @@ const apiProxy = require('../util/proxy');
 const devStatic = require('../util/dev.static'); // 开发环境下的处理方法
 
 const isDev = process.env.NODE_ENV === 'development'; // 判断环境
+console.log(isDev ? '开发环境' : '生产环境');
 
 const app = express();
 
@@ -31,8 +32,9 @@ app.use(
 app.use(favicon(path.join(__dirname, '../favicon.ico')));
 
 // 对api做一个拦截
-app.use('./api/user', handleLogin);
-app.use('./api', apiProxy);
+app.use('/api/user', handleLogin);
+app.use('/api', apiProxy);
+console.log('232323');
 
 // 判断环境
 if (!isDev) {

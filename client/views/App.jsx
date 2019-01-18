@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import Routes from '../config/router';
 
@@ -22,4 +22,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);

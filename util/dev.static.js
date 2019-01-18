@@ -27,7 +27,6 @@ const mfs = new MemoryFs();
 // compiler，用来监听依赖是否有变化，如果有变化，就会重新打包
 const serverCompiler = webpack(serverConfig);
 
-console.log();
 // 指定webpack的输出文件等于这个内存路径？
 serverCompiler.outputFileSystem = mfs;
 
