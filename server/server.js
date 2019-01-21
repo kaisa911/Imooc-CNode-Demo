@@ -34,7 +34,6 @@ app.use(favicon(path.join(__dirname, '../favicon.ico')));
 // 对api做一个拦截
 app.use('/api/user', handleLogin);
 app.use('/api', apiProxy);
-console.log('232323');
 
 // 判断环境
 if (!isDev) {

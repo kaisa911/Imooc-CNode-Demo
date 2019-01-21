@@ -1,25 +1,14 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { observer, inject } from 'mobx-react';
 import Routes from '../config/router';
 
-@inject('routing')
-@observer
 class App extends React.Component {
   componentDidMount() {
-    // do somethings
+    // do something here
   }
 
   render() {
-    return (
-      <div>
-        <Link to="/">首页</Link>
-        <br />
-        <Link to="/detail">详情</Link>
-        <Routes />
-      </div>
-    );
+    return <Routes key="route" />;
   }
 }
 
-export default withRouter(App);
+export default App;

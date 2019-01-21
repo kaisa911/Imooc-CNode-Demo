@@ -1,36 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import createBrowserHistory from 'history/createBrowserHistory';
-import { Router } from 'react-router'; // 浏览器的router
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
+import { BrowserRouter as Router } from 'react-router-dom'; // 浏览器的router react-router 的Route必须包裹在一个Router里面才能使用
 import { Provider } from 'mobx-react';
 import App from './views/App';
 
 import appState from './store/appState';
 
-const browserHistory = createBrowserHistory();
-const routingStore = new RouterStore();
-
-const stores = {
-  // Key can be whatever you want
-  routing: routingStore,
-  // ...other stores
-  appState,
-};
-
-const history = syncHistoryWithStore(browserHistory, routingStore);
-
 const root = document.getElementById('root');
 
 const render = (Component) => {
   // 判断当前环境，来判断使用render或者hydrate
-  const isSSR = process.env.NODE_ENV === 'development' ? 'render' : 'hydrate';
+  // const isSSR = process.env.NODE_ENV === 'development' ? 'render' : 'hydrate';
 
-  ReactDOM[isSSR](
+  ReactDOM.hydrate(
     <AppContainer>
-      <Provider {...stores}>
-        <Router history={history}>
+      <Provider appState={appState}>
+        <Router>
           <Component />
         </Router>
       </Provider>

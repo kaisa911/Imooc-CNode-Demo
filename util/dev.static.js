@@ -60,9 +60,10 @@ serverCompiler.watch({}, (err, stats) => {
 
 module.exports = (app) => {
   app.use(
-    '/public',
+    '/public/',
     proxy({
-      target: 'http://localhost:8888',
+      target: 'http://0.0.0.0:8888/',
+      changeOrigin: true,
     })
   );
 
@@ -72,8 +73,9 @@ module.exports = (app) => {
         const content = ReactDomServer.renderToString(serverBundle);
         res.send(template.replace('<!-- app -->', content));
       })
-      .catch(() => {
-        res.send('404 not found');
+      .catch((err) => {
+        console.log(err);
+        res.send(err);
       });
   });
 };

@@ -19,6 +19,8 @@ const Config = webpackMerge(baseConfig, {
   mode: 'development',
   plugins: [
     new HTMLPlugin({
+      title: 'My App',
+      filename: 'index.html',
       template: path.join(__dirname, '../client/template.html'),
     }), // 生成一个html页面，把entry的东西注入到这个html里
     ...baseConfig.plugins,

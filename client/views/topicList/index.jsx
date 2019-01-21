@@ -7,7 +7,8 @@ import { AppState } from '../../store/appState';
 @observer
 class TopicList extends React.Component {
   static propTypes = {
-    appState: PropTypes.instanceOf(AppState).isRequired,
+    // eslint-disable-next-line
+    appState: PropTypes.instanceOf(AppState),
   };
 
   constructor(props) {

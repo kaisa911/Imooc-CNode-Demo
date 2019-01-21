@@ -1,15 +1,13 @@
 import React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import TopicList from '../views/topicList/index';
 import TopicDetail from '../views/topicDetail/index';
 
-export default () => (
-  <Switch>
-    <Route path="/" exact render={() => <Redirect to="/list" />} />
+export default () => [
+  <Route path="/" exact render={() => <Redirect to="/list" />} key="path:/" />,
 
-    <Route path="/list" exact component={TopicList} />
+  <Route path="/list" exact component={TopicList} key="path:/list" />,
 
-    <Route path="/detail" exact component={TopicDetail} />
-  </Switch>
-);
+  <Route path="/detail" exact component={TopicDetail} key="path:/detail" />,
+];
