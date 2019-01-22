@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { BrowserRouter as Router } from 'react-router-dom'; // 浏览器的router react-router 的Route必须包裹在一个Router里面才能使用
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import App from './views/App';
-
-import appState from './store/appState';
+import AppState from './store/appState';
 
 const root = document.getElementById('root');
 
@@ -15,10 +14,10 @@ const render = (Component) => {
 
   ReactDOM.hydrate(
     <AppContainer>
-      <Provider appState={appState}>
-        <Router>
+      <Provider appState={new AppState()}>
+        <BrowserRouter>
           <Component />
-        </Router>
+        </BrowserRouter>
       </Provider>
     </AppContainer>,
     root

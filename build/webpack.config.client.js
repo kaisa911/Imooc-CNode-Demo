@@ -45,6 +45,9 @@ if (isDev) {
     historyApiFallback: {
       index: '/public/index.html',
     }, // 制定index 映射到那个文件
+    proxy: {
+      '/api': 'http://localhost:3333',
+    },
   };
   Config.performance = {
     // false | "error" | "warning" // 不显示性能提示 | 以错误形式提示 | 以警告...

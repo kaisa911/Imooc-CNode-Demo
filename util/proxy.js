@@ -1,6 +1,7 @@
 const axios = require('axios');
+const querystring = require('query-string');
 
-const baseUrl = 'http://cnodejs.org/api/v1';
+const baseUrl = 'https://cnodejs.org/api/v1';
 
 module.exports = (req, res) => {
   const { path } = req;
@@ -8,22 +9,29 @@ module.exports = (req, res) => {
   const { needAccessToken } = req.query;
 
   // 如果需要token，并且user里没有token，返回401
-  if (needAccessToken && user.accessToken) {
+  if (needAccessToken && !user.accessToken) {
     res.status(401).send({
       success: false,
       msg: 'need login',
     });
   }
 
-  const query = Object.assign({}, req.query);
+  const query = Object.assign({}, req.query, {
+    accesstoken: needAccessToken && req.method === 'GET' ? user.accesstoken : '',
+  });
   if (query.accessToken) delete query.accessToken;
 
   axios(`${baseUrl}${path}`, {
     method: req.method,
     params: query,
-    data: Object.assign({}, req.body, { accesstoken: user.accessToken }),
+    data: querystring.stringify(
+      Object.assign({}, req.body, {
+        // 放在body中了
+        accesstoken: needAccessToken && req.method === 'POST' ? user.accessToken : '',
+      })
+    ),
     headers: {
-      'Content-Type': 'application/x-www-form-urlencode', // 使用form-data的类型去请求，不使用application／json的
+      'Content-Type': 'application/x-www-form-urlencoded', // 使用form-data的类型去请求，不使用application／json的
     },
   })
     .then((resp) => {

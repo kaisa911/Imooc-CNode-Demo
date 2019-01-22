@@ -5,6 +5,7 @@ const path = require('path');
 const proxy = require('http-proxy-middleware'); // express中间件，用来做代理的
 const ReactDomServer = require('react-dom/server'); // 用reactDomServer取渲染打包好的bundle文件
 
+const asyncBootstrap = require('react-async-bootstrapper');
 const serverConfig = require('../build/webpack.config.server'); // 引入webpack的server的配置
 
 // 用http请求的方式，请求webpack devServer里的template的html
@@ -32,6 +33,8 @@ serverCompiler.outputFileSystem = mfs;
 
 let serverBundle;
 
+let createStoreMap;
+
 // 监听webpack的entry下面所有的依赖文件
 serverCompiler.watch({}, (err, stats) => {
   if (err) throw err;
@@ -56,6 +59,7 @@ serverCompiler.watch({}, (err, stats) => {
   m._compile(bundle, 'server-entry.js');
   // 将bundle模块export出去
   serverBundle = m.exports.default;
+  createStoreMap = m.exports.createStoreMap; // eslint-disable-line
 });
 
 module.exports = (app) => {
@@ -70,8 +74,26 @@ module.exports = (app) => {
   app.get('*', (req, res) => {
     getTemplate()
       .then((template) => {
-        const content = ReactDomServer.renderToString(serverBundle);
-        res.send(template.replace('<!-- app -->', content));
+        const routerContext = {};
+        const stores = createStoreMap();
+        const apq = serverBundle(stores, routerContext, req.url);
+        console.log(stores);
+        asyncBootstrap(app)
+          .then(() => {
+            const content = ReactDomServer.renderToString(apq);
+            // 对重定向的处理
+            if (routerContext.url) {
+              res.status(302).setHeader('Location', routerContext.url);
+              res.end();
+              return;
+            }
+            console.log(stores);
+
+            res.send(template.replace('<!-- app -->', content));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);

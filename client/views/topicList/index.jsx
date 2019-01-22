@@ -1,14 +1,14 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { AppState } from '../../store/appState';
+import AppState from '../../store/appState';
 
 @inject('appState')
 @observer
 class TopicList extends React.Component {
   static propTypes = {
     // eslint-disable-next-line
-    appState: PropTypes.instanceOf(AppState),
+    appState: PropTypes.instanceOf(AppState).isRequired,
   };
 
   constructor(props) {
@@ -25,9 +25,20 @@ class TopicList extends React.Component {
     appState.changeName(e.target.value);
   };
 
+  asyncBootstrap = () => new Promise((resolve) => {
+    setTimeout(() => {
+      const { appState } = this.props;
+      appState.count = 3;
+      resolve(true);
+    }, 3000);
+    resolve(true);
+  });
+
   render() {
     const { appState } = this.props;
     const { msg } = appState;
+    console.log(appState.count);
+    this.asyncBootstrap();
     return (
       <div>
         <input type="text" onChange={this.changeName} />
