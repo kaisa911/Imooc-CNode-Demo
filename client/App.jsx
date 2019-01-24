@@ -8,13 +8,16 @@ import AppState from './store/appState';
 
 const root = document.getElementById('root');
 
+const stores = {
+  appState: new AppState(),
+};
 const render = (Component) => {
   // 判断当前环境，来判断使用render或者hydrate
   // const isSSR = process.env.NODE_ENV === 'development' ? 'render' : 'hydrate';
 
   ReactDOM.hydrate(
     <AppContainer>
-      <Provider appState={new AppState()}>
+      <Provider {...stores}>
         <BrowserRouter>
           <Component />
         </BrowserRouter>

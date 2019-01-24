@@ -41,8 +41,8 @@ serverCompiler.watch({}, (err, stats) => {
   // stats是webpack打包的一些信息
   const statsp = stats.toJson();
   // 输出这些打包信息
-  statsp.errors.forEach(errp => console.error(errp));
-  statsp.warnings.forEach(warning => console.warn(warning));
+  statsp.errors.forEach(errp => console.error(errp)); // eslint-disable-line
+  statsp.warnings.forEach(warning => console.warn(warning)); // eslint-disable-line
 
   // 获取的bundle的路径
   const bundlePath = path.join(serverConfig.output.path, serverConfig.output.filename);
@@ -58,6 +58,7 @@ serverCompiler.watch({}, (err, stats) => {
   // eslint-disable-next-line
   m._compile(bundle, 'server-entry.js');
   // 将bundle模块export出去
+  // serverBundle 已经不是一个可以渲染的东西了，是一个方法
   serverBundle = m.exports.default;
   createStoreMap = m.exports.createStoreMap; // eslint-disable-line
 });
@@ -77,26 +78,22 @@ module.exports = (app) => {
         const routerContext = {};
         const stores = createStoreMap();
         const apq = serverBundle(stores, routerContext, req.url);
-        console.log(stores);
         asyncBootstrap(app)
           .then(() => {
             const content = ReactDomServer.renderToString(apq);
-            // 对重定向的处理
+            // 对重定向的处理 如果有重定向的话，会在routerContext上加一个url的属性
             if (routerContext.url) {
               res.status(302).setHeader('Location', routerContext.url);
               res.end();
               return;
             }
-            console.log(stores);
-
             res.send(template.replace('<!-- app -->', content));
           })
           .catch((err) => {
-            console.log(err);
+            console.log(err); // eslint-disable-line
           });
       })
       .catch((err) => {
-        console.log(err);
         res.send(err);
       });
   });

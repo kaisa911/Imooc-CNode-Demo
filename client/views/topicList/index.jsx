@@ -30,14 +30,12 @@ class TopicList extends React.Component {
       const { appState } = this.props;
       appState.count = 3;
       resolve(true);
-    }, 3000);
-    resolve(true);
+    });
   });
 
   render() {
     const { appState } = this.props;
     const { msg } = appState;
-    console.log(appState.count);
     this.asyncBootstrap();
     return (
       <div>
