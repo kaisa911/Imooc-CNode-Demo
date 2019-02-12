@@ -1,5 +1,5 @@
 const express = require('express');
-const ReactDomServer = require('react-dom/server');
+// const ReactDomServer = require('react-dom/server');
 const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
@@ -8,6 +8,7 @@ const favicon = require('serve-favicon'); // 处理favicon
 const handleLogin = require('../util/handleLogin');
 const apiProxy = require('../util/proxy');
 const devStatic = require('../util/dev.static'); // 开发环境下的处理方法
+const serverRender = require('../util/server-render');
 
 const isDev = process.env.NODE_ENV === 'development'; // 判断环境
 console.log(isDev ? '开发环境' : '生产环境');
@@ -46,9 +47,8 @@ if (!isDev) {
   app.use('/public', express.static(path.join(__dirname, '../dist')));
 
   // 处理请求
-  app.get('*', (req, res) => {
-    const appString = ReactDomServer.renderToString(serverEntry);
-    res.send(template.replace('<!-- app -->', appString));
+  app.get('*', (req, res, next) => {
+    serverRender(serverEntry, template, req, res).catch(next);
   });
 } else {
   devStatic(app);

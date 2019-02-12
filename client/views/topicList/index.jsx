@@ -1,7 +1,10 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import Button from '@material-ui/core/Button';
 import AppState from '../../store/appState';
+import Container from '../layout/container';
 
 @inject('appState')
 @observer
@@ -25,10 +28,10 @@ class TopicList extends React.Component {
     appState.changeName(e.target.value);
   };
 
-  asyncBootstrap = () => new Promise((resolve) => {
+  bootstrap = () => new Promise((resolve) => {
     setTimeout(() => {
       const { appState } = this.props;
-      appState.count = 3;
+      appState.count = 5;
       resolve(true);
     });
   });
@@ -36,12 +39,19 @@ class TopicList extends React.Component {
   render() {
     const { appState } = this.props;
     const { msg } = appState;
-    this.asyncBootstrap();
     return (
-      <div>
+      <Container>
+        <Helmet>
+          <title>topic list</title>
+          <meta name="description" content="description" />
+        </Helmet>
+        <Button variant="outlined" color="primary">
+          click me
+        </Button>
         <input type="text" onChange={this.changeName} />
+        <br />
         <span>{msg}</span>
-      </div>
+      </Container>
     );
   }
 }

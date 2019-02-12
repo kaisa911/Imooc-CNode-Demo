@@ -9,7 +9,7 @@ useStaticRendering(true);
 
 // store 每次都要重新创建一次，因为不能同一个store在不同的请求里使用它
 // context
-// location 是 请求的url
+// location 是请求的 url
 export default (stores, routerContext, url) => (
   <Provider {...stores}>
     <StaticRouter context={routerContext} location={url}>
