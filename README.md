@@ -9,6 +9,5 @@ git clone https://github.com/kaisa911/Imooc-CNode-Demo.git
 npm i
 npm run dev:client
 npm run dev:server
+然后可以在 http://localhost:3333  查看
 ```
-
-然后可以在``http://localhost:3333```里查看
